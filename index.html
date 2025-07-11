@@ -1,0 +1,82 @@
+import pygame
+import sys
+
+# Inisialisasi Pygame
+pygame.init()
+lebar, tinggi = 800, 600
+layar = pygame.display.set_mode((lebar, tinggi))
+pygame.display.set_caption("Surat Cinta dari Amplop")
+
+# Warna
+PINK = (255, 182, 193)
+PUTIH = (255, 255, 255)
+MERAH = (255, 0, 0)
+HITAM = (0, 0, 0)
+
+# Font
+font = pygame.font.SysFont("arial", 24)
+font_ttd = pygame.font.SysFont("lucida handwriting", 20)
+
+# Posisi awal
+x_amplop = lebar
+surat_keluar = False
+animasi_selesai = False
+
+# Load gambar lucu (gunakan gambar lokal kamu)
+# gambar_lucu = pygame.image.load('gambar_lucu.png')
+# gambar_lucu = pygame.transform.scale(gambar_lucu, (60, 60))
+
+# Loop utama
+clock = pygame.time.Clock()
+while True:
+    layar.fill((255, 240, 245))  # latar pink muda
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+    # Gerakkan amplop ke kiri
+    if x_amplop > 300:
+        x_amplop -= 3
+    else:
+        surat_keluar = True
+
+    # Gambar amplop utama (warna pink)
+    badan_amplop = pygame.Rect(x_amplop, 350, 200, 100)
+    pygame.draw.rect(layar, PINK, badan_amplop)
+
+    # Tutup amplop (segitiga)
+    if surat_keluar:
+        pygame.draw.polygon(layar, PINK, [(x_amplop, 350), (x_amplop + 100, 300), (x_amplop + 200, 350)])
+    else:
+        pygame.draw.polygon(layar, PINK, [(x_amplop, 350), (x_amplop + 100, 320), (x_amplop + 200, 350)])
+
+    # Animasi surat keluar dari amplop
+    if surat_keluar and not animasi_selesai:
+        for i in range(0, 121, 5):
+            surat = pygame.Rect(x_amplop + 25, 350 - i, 150, 100)
+            pygame.draw.rect(layar, PUTIH, surat)
+            pygame.display.flip()
+            pygame.time.delay(30)
+        animasi_selesai = True
+
+    # Gambar isi surat cinta
+    if animasi_selesai:
+        surat = pygame.Rect(x_amplop + 25, 230, 150, 100)
+        pygame.draw.rect(layar, PUTIH, surat)
+
+        # Balon love
+        pygame.draw.ellipse(layar, MERAH, (x_amplop + 55, 240, 20, 20))
+        pygame.draw.ellipse(layar, MERAH, (x_amplop + 75, 240, 20, 20))
+        pygame.draw.polygon(layar, MERAH, [(x_amplop + 55, 250), (x_amplop + 95, 250), (x_amplop + 75, 270)])
+
+        # Tanda tangan
+        ttd = font_ttd.render("~ i love you", True, HITAM)
+        layar.blit(ttd, (x_amplop + 60, 290))
+
+        # Gambar lucu (komentar kalau belum ada file)
+        # layar.blit(gambar_lucu, (x_amplop + 100, 235))
+
+    pygame.display.flip()
+    clock.tick(60)
