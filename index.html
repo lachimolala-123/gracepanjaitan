@@ -1,106 +1,128 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Surat Cinta 💌</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Surat Cinta Untuk Kamu</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins&display=swap" rel="stylesheet">
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
-      background-color: #fff0f5;
-      font-family: sans-serif;
-      text-align: center;
       margin: 0;
       padding: 0;
-    }
-    .container {
-      margin-top: 80px;
+      background: linear-gradient(to bottom right, #ffdde1, #ee9ca7);
+      font-family: 'Dancing Script', cursive;
+      color: white;
+      text-align: center;
+      overflow: hidden;
       position: relative;
+      height: 100vh;
     }
-    .envelope {
-      width: 200px;
-      height: 100px;
-      background-color: pink;
-      margin: 0 auto;
-      position: relative;
-      border-radius: 8px;
-      animation: moveIn 3s forwards;
-    }
-    .flap {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0;
-      height: 0;
-      border-left: 100px solid transparent;
-      border-right: 100px solid transparent;
-      border-bottom: 50px solid pink;
-      transform-origin: top;
-      animation: flapOpen 3s ease-in-out 3s forwards;
-    }
-    .letter {
-      width: 150px;
-      height: 100px;
-      background: white;
-      border: 2px solid #ccc;
-      margin: 0 auto;
-      position: absolute;
-      top: 100px;
-      left: 50%;
-      transform: translateX(-50%) translateY(0);
+    h1 {
+      font-size: 3em;
+      margin-top: 1.5em;
       opacity: 0;
-      border-radius: 6px;
-      animation: letterUp 2s ease-out 5s forwards;
+      animation: fadeIn 2s ease-in-out forwards;
     }
-    .heart {
+    #pesan {
+      font-size: 2em;
+      margin-top: 1em;
+      padding: 0 1em;
+      display: inline-block;
+      max-width: 90%;
+      line-height: 1.5;
+    }
+    #tsparticles {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+    }
+    .bg-image {
       position: absolute;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
+      bottom: 0;
+      right: 0;
+      opacity: 0.1;
+      width: 60%;
+      max-width: 600px;
     }
-    .heart:before,
-    .heart:after {
-      content: \"\";
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: red;
-      border-radius: 50%;
-    }
-    .heart:before {
-      left: -10px;
-    }
-    .heart:after {
-      top: -10px;
-    }
-    .signature {
-      position: absolute;
-      bottom: 10px;
-      width: 100%;
-      font-family: 'Lucida Handwriting', cursive;
-      font-size: 14px;
-      color: #333;
-    }
-    @keyframes moveIn {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(0); }
-    }
-    @keyframes flapOpen {
-      to { transform: rotateX(180deg); }
-    }
-    @keyframes letterUp {
-      0% { transform: translateX(-50%) translateY(0); opacity: 0; }
-      100% { transform: translateX(-50%) translateY(-150px); opacity: 1; }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="envelope">
-      <div class="flap"></div>
-    </div>
-    <div class="letter">
-      <div class="heart"></div>
-      <div class="signature">~ i love you</div>
-    </div>
-  </div>
+
+  <div id="tsparticles"></div>
+
+  <h1>💌 Surat Cinta</h1>
+  <span id="pesan"></span>
+
+  <img class="bg-image" src="https://i.ibb.co/3W4r5qR/couple-shadow.png" alt="Couple Shadow"/>
+
+  <!-- Musik Autoplay (I Like Me Better) -->
+  <audio autoplay loop hidden>
+    <source src="https://dl.sndup.net/zmmt/I%20Like%20Me%20Better%20-%20Lauv%20(Official%20Audio).mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Suara Ketik -->
+  <audio id="typeSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_efca8a1f7c.mp3?filename=keyboard-typing-100252.mp3"></audio>
+
+  <!-- Typed.js -->
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script>
+    const typeSound = document.getElementById('typeSound');
+
+    const typed = new Typed("#pesan", {
+      strings: [
+        "Aku gak pernah nyangka...",
+        "Tapi aku merasa lebih baik...",
+        "Saat aku bareng kamu 💕",
+        "Karena aku suka diriku saat bersamamu 😌",
+        "I like me better when I'm with you. 🎶"
+      ],
+      typeSpeed: 50,
+      backSpeed: 25,
+      showCursor: false,
+      loop: false,
+      onStringTyped: () => {
+        typeSound.currentTime = 0;
+        typeSound.play();
+      }
+    });
+  </script>
+
+  <!-- Bunga Jatuh -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
+  <script>
+    tsParticles.load("tsparticles", {
+      particles: {
+        number: { value: 30 },
+        shape: {
+          type: "image",
+          image: {
+            src: "https://i.ibb.co/7Y3htQW/petal.png",
+            width: 20,
+            height: 20
+          }
+        },
+        size: { value: 16 },
+        move: {
+          enable: true,
+          speed: 1.5,
+          direction: "bottom",
+          straight: false
+        },
+        opacity: { value: 0.8 }
+      }
+    });
+  </script>
+
 </body>
 </html>
