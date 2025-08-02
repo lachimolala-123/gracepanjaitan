@@ -1,1 +1,42 @@
-# Surat-cinta
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Jam Digital</title>
+  <style>
+    body {
+      background-color: #0f172a;
+      color: #38bdf8;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    #clock {
+      font-size: 5em;
+      border: 4px solid #38bdf8;
+      padding: 20px 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px #38bdf8;
+    }
+  </style>
+</head>
+<body>
+  <div id="clock">00:00:00</div>
+
+  <script>
+  function updateClock() {
+    const now = new Date();
+    const jam = now.getHours().toString().padStart(2, '0');
+    const menit = now.getMinutes().toString().padStart(2, '0');
+    const detik = now.getSeconds().toString().padStart(2, '0');
+    document.getElementById('clock').textContent = jam + ":" + menit + ":" + detik;
+  }
+
+  // BAGIAN INI PENTING ↓
+  setInterval(updateClock, 1000); // update tiap 1 detik
+  updateClock(); // panggil langsung sekali di awal
+</script>
+    
